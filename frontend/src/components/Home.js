@@ -1,5 +1,8 @@
+import "../App.css";
+import { ListGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import userPostsAPI from "../api/userPostsAPI";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -14,12 +17,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Home Page</h1>
-      <div>
-        {posts.map((post) => (
-          <h3 key={post.id}>{post.title}</h3>
-        ))}
+    <div className="container-fluid side-container">
+      <div className="row side-row">
+        <ListGroup as="ol" numbered>
+          {posts.map((post) => (
+            <ListGroup.Item variant="dark" key={post.id}>
+              <Link to={`/posts/${post.id}`}>{post.title}</Link>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
       </div>
     </div>
   );
