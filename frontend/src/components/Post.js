@@ -1,5 +1,8 @@
+import "../App.css";
+import { Card } from "react-bootstrap";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import userPostsAPI from "../api/userPostsAPI";
 
 const Post = () => {
@@ -20,18 +23,31 @@ const Post = () => {
       return null;
     }
     return (
-      <div>
-        <h3>{post.title}</h3>
-        <p>{post.content}</p>
-        <p>{post.created_date}</p>
-      </div>
+      <Card>
+        <Card.Body>
+          <Card.Title>{post.title}</Card.Title>
+          <Card.Text>{post.content}</Card.Text>
+          <Card.Text>{post.created_date}</Card.Text>
+          <Card.Footer>
+            <Link to={`/posts/${post.id}/update`}>
+              <FaEdit />
+            </Link>
+            {"  "}
+            <Link to={`/posts/${post.id}/delete`}>
+              <FaTrashAlt />
+            </Link>
+          </Card.Footer>
+        </Card.Body>
+      </Card>
     );
   };
 
   return (
-    <div>
-      <h1>Post Details</h1>
-      {renderPost()}
+    <div className="container-fluid side-container">
+      <div className="row side-row">
+        <h1>Post Details</h1>
+        {renderPost()}
+      </div>
     </div>
   );
 };
